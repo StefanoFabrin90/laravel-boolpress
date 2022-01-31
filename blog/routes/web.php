@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('guests.home');
-});
+
 
 Auth::routes();
 
@@ -28,3 +27,9 @@ Route::middleware('auth')
         // admin
         Route::get('/', 'HomeController@index')->name('home');
     });
+
+
+// home front -> sempre alla fine
+Route::get('{any?}', function () {
+    return view('guests.home');
+})->where('any', '.*');
