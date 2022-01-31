@@ -122,7 +122,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".container h1 {\n  text-transform: uppercase;\n}", ""]);
+exports.push([module.i, ".container h1 {\n  text-transform: uppercase;\n  color: red;\n}", ""]);
 
 // exports
 

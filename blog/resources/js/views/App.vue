@@ -17,6 +17,7 @@ export default {
     .container {
         h1 {
             text-transform: uppercase;
+            color: red;
         }
     }
 </style>
