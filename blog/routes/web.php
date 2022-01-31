@@ -26,6 +26,9 @@ Route::middleware('auth')
 
         // admin
         Route::get('/', 'HomeController@index')->name('home');
+
+        //posts= rotta di risorsa
+        Route::resource('/posts', 'PostController');
     });
 
 
