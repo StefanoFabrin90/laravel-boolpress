@@ -37,7 +37,9 @@
                             <a class="nav-link" href="{{ url('/') }}" target="_black">Front office</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.posts.index') }}">Posts</a>
+                            <a class="nav-link 
+                            @if(Request::route()->getName() == 'admin.posts.index') active @endif"
+                            href="{{ route('admin.posts.index') }}">Posts</a>
                         </li>
                     </ul>
 
