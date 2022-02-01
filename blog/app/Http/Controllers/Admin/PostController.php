@@ -41,16 +41,17 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // validazione
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required'
-        ], [
-            'required' => 'The :attribute is wrong',
-            'max' => 'Max :max characters for the :attribute',
-        ]);
-
+        // $request->validate([
+        //     'title' => 'required|max:255',
+        //     'content' => 'required'
+        // ], [
+        //     'required' => 'The :attribute is wrong',
+        //     'max' => 'Max :max characters for the :attribute',
+        // ]);
+        $request->validate($this->validation_rules(), $this->validation_message());
         $data = $request->all();
         //dump($data);
+
 
         // creazione nuovo post
         $new_post = new Post;
@@ -96,7 +97,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        if (!$post) {
+            abort(404);
+        }
+
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -108,7 +115,18 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validazione
+        // $request->validate([
+        //     'title' => 'required|max:255',
+        //     'content' => 'required'
+        // ], [
+        //     'required' => 'The :attribute is wrong',
+        //     'max' => 'Max :max characters for the :attribute',
+        // ]);
+        $request->validate($this->validation_rules(), $this->validation_message());
+
+        $data = $request->all();
+        // dump($data);
     }
 
     /**
@@ -120,5 +138,23 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // validazione delle regole
+    private function validation_rules()
+    {
+        return [
+            'title' => 'required|max:255',
+            'content' => 'required'
+        ];
+    }
+
+    // validazione delle message
+    private function validation_message()
+    {
+        return [
+            'required' => 'The :attribute is wrong',
+            'max' => 'Max :max characters for the :attribute',
+        ];
     }
 }

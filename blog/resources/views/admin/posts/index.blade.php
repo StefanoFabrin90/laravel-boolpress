@@ -23,7 +23,9 @@
                             <td>
                                 <a class="btn btn-warning" href="{{ route('admin.posts.show', $post->slug) }}">Show</a>
                             </td>
-                            <td>EDIT</td>
+                            <td>
+                                <a class="btn btn-secondary" href="{{ route('admin.posts.edit', $post->id) }}">Edit</a>
+                            </td>
                             <td>DELETE</td>
                         </tr>
                     @endforeach
