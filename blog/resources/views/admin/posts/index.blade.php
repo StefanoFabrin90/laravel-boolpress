@@ -20,7 +20,9 @@
                         <tr>
                             <td>{{ $post->id }}</td>
                             <td>{{ $post->title }}</td>
-                            <td>SHOW</td>
+                            <td>
+                                <a class="btn btn-warning" href="{{ route('admin.posts.show', $post->slug) }}">Show</a>
+                            </td>
                             <td>EDIT</td>
                             <td>DELETE</td>
                         </tr>
