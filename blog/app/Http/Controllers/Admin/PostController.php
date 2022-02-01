@@ -126,7 +126,27 @@ class PostController extends Controller
         $request->validate($this->validation_rules(), $this->validation_message());
 
         $data = $request->all();
-        // dump($data);
+        dump($data);
+
+        $post = Post::find($id);
+
+        if ($data['title'] != $post->title) {
+            $slug = Str::slug($data['title'], '-');
+            $count = 1;
+            $base_slug = $slug;
+            while (Post::where('slug', $slug)->first()) {
+                $slug = $base_slug . '-' . $count;
+                $count++;
+            }
+
+            $data['slug'] = $slug;
+        } else {
+            $data['slug'] = $post->slug;
+        }
+
+        $post->update($data);
+
+        return redirect()->route('admin.posts.show', $post->slug);
     }
 
     /**
