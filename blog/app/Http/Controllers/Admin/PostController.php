@@ -16,7 +16,10 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        // paginazione
+        //$posts = Post::paginate(2);
+        $posts = Post::simplePaginate(2);
+        //$posts = Post::all();
         //dump($posts);
 
         return view('admin.posts.index', compact('posts'));
@@ -126,7 +129,7 @@ class PostController extends Controller
         $request->validate($this->validation_rules(), $this->validation_message());
 
         $data = $request->all();
-        dump($data);
+        //dump($data);
 
         $post = Post::find($id);
 
@@ -157,7 +160,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->delete();
+
+        return redirect()->route('admin.posts.index')->with('delete', $post->title);
     }
 
     // validazione delle regole
