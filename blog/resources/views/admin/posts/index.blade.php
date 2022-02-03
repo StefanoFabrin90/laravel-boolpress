@@ -29,9 +29,9 @@
                             <td>{{ $post->title }}</td>
                             <td>
                                 @if($post->category) 
-                                <a href="{{ route('admin.category', $post->category->id) }}">{{ $post->category->name }}</a>
+                                <a href="{{ route('admin.category', $post->category->id) }}" class="btn btn-primary">{{ $post->category->name }}</a>
                                 @else 
-                                    Uncategorized 
+                                    <span class="btn btn-primary"> Uncategorized </span> 
                                 @endif
                             </td>
                             <td>
