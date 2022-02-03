@@ -29,6 +29,9 @@ Route::middleware('auth')
 
         //posts= rotta di risorsa
         Route::resource('/posts', 'PostController');
+
+        //rotta per la categoria
+        Route::get('/categories/{id}', 'CategoryController@show')->name('category');
     });
 
 

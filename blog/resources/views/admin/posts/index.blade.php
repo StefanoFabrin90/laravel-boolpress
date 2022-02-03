@@ -18,6 +18,7 @@
                     <tr>
                         <th>ID</th>
                         <th>TITLE</th>
+                        <th>CATEGORY</th>
                         <th colspan="3">ACTIONS</th>
                     </tr>
                 </thead>
@@ -26,6 +27,13 @@
                         <tr>
                             <td>{{ $post->id }}</td>
                             <td>{{ $post->title }}</td>
+                            <td>
+                                @if($post->category) 
+                                <a href="{{ route('admin.category', $post->category->id) }}">{{ $post->category->name }}</a>
+                                @else 
+                                    Uncategorized 
+                                @endif
+                            </td>
                             <td>
                                 <a class="btn btn-warning" href="{{ route('admin.posts.show', $post->slug) }}">Show</a>
                             </td>
