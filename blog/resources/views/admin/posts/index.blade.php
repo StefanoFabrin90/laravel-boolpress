@@ -45,7 +45,7 @@
             </table>
         @endif
 
-        
+
         {{ $posts->links() }}
     </div>
 @endsection

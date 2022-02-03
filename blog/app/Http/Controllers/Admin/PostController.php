@@ -18,7 +18,7 @@ class PostController extends Controller
     {
         // paginazione
         //$posts = Post::paginate(2);
-        $posts = Post::simplePaginate(2);
+        $posts = Post::simplePaginate(3);
         //$posts = Post::all();
         //dump($posts);
 
