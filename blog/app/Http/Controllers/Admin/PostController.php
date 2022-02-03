@@ -89,6 +89,8 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', '=', $slug)->first();
+        //dump($post->category);
+
 
         if (!$post) {
             abort(404);
@@ -106,12 +108,14 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+        //step category 
+        $categories = Category::all();
 
         if (!$post) {
             abort(404);
         }
 
-        return view('admin.posts.edit', compact('post'));
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
