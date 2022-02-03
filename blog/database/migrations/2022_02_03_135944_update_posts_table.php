@@ -32,7 +32,10 @@ class UpdatePostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
-            //
+            $table->dropForeign('posts_category_id_foreign'); //eliminare la linea di collegamento tra tabelle
+
+            $table->dropColumn('category_id'); // eliminare la colonna
+
         });
     }
 }
