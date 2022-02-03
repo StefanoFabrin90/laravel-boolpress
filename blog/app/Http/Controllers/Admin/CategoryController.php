@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Category;
 
 class CategoryController extends Controller
 {
     //pagina di categoria
     public function show($id)
     {
-        return view('admin.categories.show');
+        $category = Category::find($id);
+        //dump($category->posts);
+
+
+        return view('admin.categories.show', compact('category'));
     }
 }
