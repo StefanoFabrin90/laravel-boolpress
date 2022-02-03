@@ -44,7 +44,7 @@
                         <li class="nav-item">
                             <a class="nav-link 
                             @if(Request::route()->getName() == 'admin.posts.create') active @endif"
-                            href="{{ route('admin.posts.create') }}">Create a new Post</a>
+                            href="{{ route('admin.posts.create') }}">New Post</a>
                         </li>
                     </ul>
 

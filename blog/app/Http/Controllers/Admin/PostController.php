@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -32,7 +33,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        //step category 
+        $categories = Category::all();
+
+
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -69,7 +74,7 @@ class PostController extends Controller
 
         $data['slug'] = $slug;
 
-        $new_post->fill($data);
+        $new_post->fill($data); //fillable
         $new_post->save();
 
         return redirect()->route('admin.posts.show', $new_post->slug);
@@ -172,7 +177,8 @@ class PostController extends Controller
     {
         return [
             'title' => 'required|max:255',
-            'content' => 'required'
+            'content' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
         ];
     }
 
@@ -182,6 +188,7 @@ class PostController extends Controller
         return [
             'required' => 'The :attribute is wrong',
             'max' => 'Max :max characters for the :attribute',
+            'category_id.exists' => 'This ID is invalid',
         ];
     }
 }

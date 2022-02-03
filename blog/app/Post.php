@@ -10,6 +10,7 @@ class Post extends Model
         'title',
         'slug',
         'content',
+        'category_id',
     ];
 
     //relazione posts categories (i posts posso avere solo una categoria)
