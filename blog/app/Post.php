@@ -14,9 +14,16 @@ class Post extends Model
     ];
 
     //relazione posts categories (i posts posso avere solo una categoria)
-
     public function category()
     {
         return $this->belongsTo('App\Category'); // posts appartiene a category
+    }
+
+
+    //relazioni con tags
+    //posts - tags
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
     }
 }

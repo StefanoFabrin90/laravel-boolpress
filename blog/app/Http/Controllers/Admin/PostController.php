@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
+use App\Tag;
 use App\Category;
 
 class PostController extends Controller
@@ -18,9 +19,10 @@ class PostController extends Controller
     public function index()
     {
         // paginazione
-        $posts = Post::paginate(4);
+        //$posts = Post::paginate(4);
         //$posts = Post::simplePaginate(3);
-        //$posts = Post::all();
+        $posts = Post::all();
+
         //dump($posts);
 
         return view('admin.posts.index', compact('posts'));
@@ -35,9 +37,10 @@ class PostController extends Controller
     {
         //step category 
         $categories = Category::all();
+        $tags = Tag::all();
 
 
-        return view('admin.posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -77,6 +80,11 @@ class PostController extends Controller
         $new_post->fill($data); //fillable
         $new_post->save();
 
+        //salva in pivot relazione tra nuovo post con tags selzionati dalla form
+        if (array_key_exists('tags', $data)) {
+            $new_post->tags()->attach($data['tags']);
+        }
+
         return redirect()->route('admin.posts.show', $new_post->slug);
     }
 
@@ -110,12 +118,13 @@ class PostController extends Controller
         $post = Post::find($id);
         //step category 
         $categories = Category::all();
+        $tags = Tag::all();
 
         if (!$post) {
             abort(404);
         }
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -183,6 +192,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id',
         ];
     }
 

@@ -54,6 +54,6 @@
         @endif
 
 
-        {{ $posts->links() }}
+        {{-- {{ $posts->links() }} --}}
     </div>
 @endsection

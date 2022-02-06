@@ -53,6 +53,24 @@
                 @enderror
             </div>
 
+            {{-- tags --}}
+            <div class="mb-3 mt-5">
+                <h4>Tags</h4>
+
+                @foreach($tags as $tag) 
+                    <span class="d-inline-block mr-5">
+                        <input type="checkbox" name="tags[]" id="tag{{ $loop->iteration }}" value="{{ $tag->id}}"
+                        @if(in_array($tag->id, old('tags', []))) checked @endif>
+                        <label for="tag{{ $loop->iteration }}">
+                            {{$tag->name}}
+                        </label>
+                    </span>
+                @endforeach
+                @error('tags')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
             <button class="btn btn-danger mt-3" type="submit">Create a new Post</button>
         </form>
 
