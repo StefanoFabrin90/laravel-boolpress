@@ -21,7 +21,7 @@
         @if (!$post->tags->isEmpty())
         <strong class="badge bg-success mt-3">TAGS:</strong>
             @foreach($post->tags as $tag)
-                {{ $tag->name }}
+                {{ $tag->name }},
             @endforeach
         @else 
         <strong class="badge bg-danger mt-3">No tags in this post</strong>

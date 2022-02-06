@@ -29,9 +29,9 @@
                             <td>{{ $post->title }}</td>
                             <td>
                                 @if($post->category) 
-                                <a href="{{ route('admin.category', $post->category->id) }}" class="btn btn-primary">{{ $post->category->name }}</a>
+                                <a href="{{ route('admin.category', $post->category->id) }}" class="badge">{{ $post->category->name }}</a>
                                 @else 
-                                    <span class="btn btn-primary"> Uncategorized </span> 
+                                    <span class="badge btn-primary"> Uncategorized </span> 
                                 @endif
                             </td>
                             <td>
@@ -55,5 +55,24 @@
 
 
         {{-- {{ $posts->links() }} --}}
+    </div>
+
+    <div class="container">
+        <h2 class="mb-3">Posts By Tag</h2>
+        @foreach($tags as $tag)
+            <h4>{{ $tag->name }}</h4>
+
+                @if($tag->posts->isEmpty()) 
+                    <p>No posts for this tag</p>
+                @else 
+                    <ul>
+                        @foreach($tag->posts as $post)
+                            <li>
+                                <a href="{{ route('admin.posts.show', $post->slug) }}">{{ $post->title }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+        @endforeach
     </div>
 @endsection

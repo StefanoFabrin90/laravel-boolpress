@@ -22,10 +22,11 @@ class PostController extends Controller
         //$posts = Post::paginate(4);
         //$posts = Post::simplePaginate(3);
         $posts = Post::all();
+        $tags = Tag::all();
 
         //dump($posts);
 
-        return view('admin.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts', 'tags'));
     }
 
     /**
@@ -166,6 +167,13 @@ class PostController extends Controller
         }
 
         $post->update($data);
+
+        //relazioni con la cartella pivot - aggiornamento 
+        if (array_key_exists('tags', $data)) {
+            $post->tags()->sync($data['tags']); // update(aggiornamento) dei tags 
+        } else {
+            $post->tags()->detach(); //nessun check selazione della form quindi pulizia
+        }
 
         return redirect()->route('admin.posts.show', $post->slug);
     }
