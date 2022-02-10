@@ -65,7 +65,7 @@ export default {
         }
     },
     created() {
-        //this.getPosts();
+        this.getPosts();
     },
     methods: {
         getPosts(page = 1) {

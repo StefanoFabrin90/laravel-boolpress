@@ -1996,7 +1996,8 @@ __webpack_require__.r(__webpack_exports__);
       pagination: null
     };
   },
-  created: function created() {//this.getPosts();
+  created: function created() {
+    this.getPosts();
   },
   methods: {
     getPosts: function getPosts() {
