@@ -3,18 +3,42 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 //componenti per rotta/pagina
+import Home from './pages/Home';
+import About from './pages/About';
+import Blog from './pages/Blog';
+import PostDetail from './pages/PostDetail';
 
-
-//attivazione router in vue
+// //attivazione router in vue
 Vue.use(VueRouter);
 
 
-//definizione delle rotte
+// //definizione delle rotte
 const router = new VueRouter({
     mode: 'history',
+    linkExactActiveClass: 'active',
     routes: [
         {
-            path
-        }
+            path:'/',
+            name:'home',
+            component: Home,
+        },
+        {
+            path:'/about',
+            name:'about',
+            component: About,
+        },
+        {
+            path:'/blog',
+            name:'blog',
+            component: Blog,
+        },
+        {
+            path:'/blog/:slug',
+            name:'post-detail',
+            component: PostDetail,
+        },
     ],
 });
+
+//portare fuori le rotte
+export default router;

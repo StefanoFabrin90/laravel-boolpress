@@ -21,4 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Api')->group(function () {
     //rotta per l archivio dei posts
     Route::get('/posts', 'PostController@index');
+
+    //rotta per il singolo post
+    Route::get('/posts/{slug}', 'PostController@show');
 });
