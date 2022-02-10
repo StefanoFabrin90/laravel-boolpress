@@ -41,18 +41,23 @@
             </div>
             
         </div>
-        <div v-else>
+        <Loader v-else />
+        <!-- <div v-else>
             <p class="text-center">Loading......</p>
-        </div>
+        </div> -->
       </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Loader from '../components/Loader'
+
 export default {
     name: 'App',
-    component:{},
+    components: {
+        Loader
+    },
     data() {
         return {
             posts: null,
@@ -60,7 +65,7 @@ export default {
         }
     },
     created() {
-        this.getPosts();
+        //this.getPosts();
     },
     methods: {
         getPosts(page = 1) {
