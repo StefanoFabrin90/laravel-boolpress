@@ -1929,13 +1929,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'App',
   component: {},
   data: function data() {
     return {
-      posts: null
+      posts: null,
+      pagination: null
     };
   },
   created: function created() {
@@ -1945,10 +1977,31 @@ __webpack_require__.r(__webpack_exports__);
     getPosts: function getPosts() {
       var _this = this;
 
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       //console.log('axios');
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://127.0.0.1:8000/api/posts').then(function (response) {
-        _this.posts = response.data;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/posts?page=".concat(page)).then(function (response) {
+        console.log(response); // this.posts = response.data // A) senza paginazione
+
+        _this.posts = response.data.data; // B) con paginazione
+
+        _this.pagination = {
+          current: response.data.current_page,
+          last: response.data.last_page
+        };
       });
+    },
+    getExcerpt: function getExcerpt(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.substr(0, maxLength) + '...';
+      }
+
+      return text;
+    },
+    formatDate: function formatDate(postDate) {
+      var date = new Date(postDate); //convertire la stringa in oggetto js valido
+
+      var formatted = new Intl.DateTimeFormat('it-IT').format(date);
+      return formatted;
     }
   }
 });
@@ -3084,24 +3137,100 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container text-center mt-5" }, [
-      _c("h1", { staticClass: "mb-5" }, [_vm._v("our Blog")]),
+    _c("div", { staticClass: "container mt-5 mb-5" }, [
+      _c("h1", { staticClass: "mb-5 text-center" }, [_vm._v("our Blog")]),
       _vm._v(" "),
       _vm.posts
         ? _c(
             "div",
-            _vm._l(_vm.posts, function (post) {
-              return _c("article", { key: "post-" + post.id }, [
-                _c("h2", { staticClass: "mb-3" }, [_vm._v(_vm._s(post.title))]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(post.created_at))]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(post.content))]),
-                _vm._v(" "),
-                _c("hr"),
-              ])
-            }),
-            0
+            [
+              _vm._l(_vm.posts, function (post) {
+                return _c(
+                  "article",
+                  { key: "post-" + post.id, staticClass: "card my-3 p-3" },
+                  [
+                    _c("h2", { staticClass: "mb-3" }, [
+                      _vm._v(_vm._s(post.title)),
+                    ]),
+                    _vm._v(" "),
+                    _c("ul", [
+                      _c("li", [
+                        _vm._v(_vm._s(_vm.formatDate(post.created_at))),
+                      ]),
+                      _vm._v(" "),
+                      _c("li", [
+                        _vm._v(_vm._s(_vm.getExcerpt(post.content, 150))),
+                      ]),
+                    ]),
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "d-flex justify-content-center" },
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success mr-3",
+                      attrs: { disabled: _vm.pagination.current === 1 },
+                      on: {
+                        click: function ($event) {
+                          return _vm.getPosts(_vm.pagination.current - 1)
+                        },
+                      },
+                    },
+                    [_vm._v("\n                  Prev\n              ")]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.pagination.last, function (i) {
+                    return _c(
+                      "button",
+                      {
+                        key: "page-" + i,
+                        staticClass: "btn mr-3",
+                        class:
+                          _vm.pagination.current === i
+                            ? "btn-success"
+                            : "btn-light",
+                        on: {
+                          click: function ($event) {
+                            return _vm.getPosts(i)
+                          },
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                  " +
+                            _vm._s(i) +
+                            "\n              "
+                        ),
+                      ]
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-success",
+                      attrs: {
+                        disabled:
+                          _vm.pagination.current === _vm.pagination.last,
+                      },
+                      on: {
+                        click: function ($event) {
+                          return _vm.getPosts(_vm.pagination.current + 1)
+                        },
+                      },
+                    },
+                    [_vm._v("\n                  Next\n              ")]
+                  ),
+                ],
+                2
+              ),
+            ],
+            2
           )
         : _c("div", [
             _c("p", { staticClass: "text-center" }, [_vm._v("Loading......")]),
