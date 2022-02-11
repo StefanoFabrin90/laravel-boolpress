@@ -3,7 +3,18 @@
         <div v-if="post">
             <h1 class="mb-5">{{ post.title }}</h1>
             <p>{{ post.content }}</p>
+
+            <!-- category -->
+            <p> <strong>CATEGORY</strong>: {{ post.category.name }}</p>
+        
+            <!-- tag -->
+            <div class="mb-5">
+                <span class="badge badge-success mr-3" v-for="tag in post.tags" :key="`tag-${tag.id}`">
+                    {{ tag.name }}
+                </span>
+            </div>
         </div>
+
         <Loader  v-else />
     </section>
 </template>
@@ -34,7 +45,7 @@ export default {
                     this.post = res.data;
                 })
                 .catch(err => log.error(err));
-        } 
+        },
     }
 }
 </script>
