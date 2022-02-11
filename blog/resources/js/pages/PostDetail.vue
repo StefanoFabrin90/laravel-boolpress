@@ -11,7 +11,7 @@
             <Tags class="mb-5" :list="post.tags" />
         </div>
 
-        <Loader  v-else />
+        <Loader text="Loading Post Details...." v-else />
     </section>
 </template>
 

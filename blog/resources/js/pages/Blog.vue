@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            <Loader v-else />
+            <Loader text="Loading Blog..." v-else />
         </div>
     </div>
 </template>

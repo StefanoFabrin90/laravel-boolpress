@@ -1,12 +1,15 @@
 <template>
     <div>
-        <p class="text-center">Loading ............</p>
+        <p class="text-center">{{ text }}</p>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Loader'
+    name: 'Loader',
+    props: {
+        text: String
+    }
 }
 </script>
 
