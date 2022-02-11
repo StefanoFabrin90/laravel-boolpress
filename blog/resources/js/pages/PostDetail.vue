@@ -8,11 +8,7 @@
             <p> <strong>CATEGORY</strong>: {{ post.category.name }}</p>
         
             <!-- tag -->
-            <div class="mb-5">
-                <span class="badge badge-success mr-3" v-for="tag in post.tags" :key="`tag-${tag.id}`">
-                    {{ tag.name }}
-                </span>
-            </div>
+            <Tags class="mb-5" :list="post.tags" />
         </div>
 
         <Loader  v-else />
@@ -22,11 +18,13 @@
 <script>
 import axios from 'axios';
 import Loader from '../components/Loader';
+import Tags from '../components/Tags';
 
 export default {
     name: 'PostDetail',
     components: {
         Loader,
+        Tags,
     },
     data() {
         return {
@@ -41,7 +39,7 @@ export default {
         getPostDetail() {
             axios.get(`http://127.0.0.1:8000/api/posts/${this.$route.params.slug}`)
                 .then( res => {
-                    //console.log(res.data);
+                    console.log(res.data);
                     this.post = res.data;
                 })
                 .catch(err => log.error(err));

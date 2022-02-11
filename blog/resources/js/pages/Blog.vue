@@ -44,12 +44,9 @@
                         Next
                     </button>
                 </div>
-                
             </div>
+
             <Loader v-else />
-            <!-- <div v-else>
-                <p class="text-center">Loading......</p>
-            </div> -->
         </div>
     </div>
 </template>
