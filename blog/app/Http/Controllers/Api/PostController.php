@@ -24,6 +24,10 @@ class PostController extends Controller
         //$post = Post::where('slug', $slug)->first(); // A) prendere il post tramite slug,  senza categoira e tag
         $post = Post::where('slug', $slug)->with(['category', 'tags'])->first(); // B) prendere il post tramite slug, con categoira e tag
 
+        if (!$post) {
+            $post['not_found'] = true;
+        }
+
         return response()->json($post); // ritorno dati in json
     }
 }
