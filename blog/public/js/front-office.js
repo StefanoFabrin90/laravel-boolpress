@@ -2230,6 +2230,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4023,15 +4035,36 @@ var render = function () {
               _vm._v(" "),
               _c("p", [_vm._v(_vm._s(_vm.post.content))]),
               _vm._v(" "),
-              _c("p", [
-                _c("strong", [_vm._v("CATEGORY")]),
-                _vm._v(": " + _vm._s(_vm.post.category.name)),
-              ]),
+              _vm.post.category
+                ? _c("p", [
+                    _c("strong", [_vm._v("CATEGORY")]),
+                    _vm._v(": " + _vm._s(_vm.post.category.name)),
+                  ])
+                : _c("p", [
+                    _c("strong", [_vm._v("CATEGORY")]),
+                    _vm._v(": Uncategorized"),
+                  ]),
               _vm._v(" "),
               _c("Tags", {
                 staticClass: "mb-5",
                 attrs: { list: _vm.post.tags },
               }),
+              _vm._v(" "),
+              _c("div", [
+                _c("h4", [_vm._v("Post Image:")]),
+                _vm._v(" "),
+                _vm.post.cover
+                  ? _c("figure", [
+                      _c("img", {
+                        attrs: { src: _vm.post.cover, alt: "post.title" },
+                      }),
+                    ])
+                  : _c("figure", [
+                      _c("img", {
+                        attrs: { src: "/image/not-found-image.jpg", alt: "" },
+                      }),
+                    ]),
+              ]),
             ],
             1
           )

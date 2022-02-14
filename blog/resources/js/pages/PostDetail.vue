@@ -5,10 +5,22 @@
             <p>{{ post.content }}</p>
 
             <!-- category -->
-            <p> <strong>CATEGORY</strong>: {{ post.category.name }}</p>
+            <p v-if="post.category"> <strong>CATEGORY</strong>: {{ post.category.name }}</p>
+            <p v-else> <strong>CATEGORY</strong>: Uncategorized</p>
         
             <!-- tag -->
             <Tags class="mb-5" :list="post.tags" />
+
+
+            <div>
+                <h4>Post Image:</h4>
+                <figure v-if="post.cover">
+                    <img :src="post.cover" alt="post.title">
+                </figure>
+                <figure v-else>
+                    <img src="/image/not-found-image.jpg" alt="">
+                </figure>
+            </div>
         </div>
 
         <Loader text="Loading Post Details...." v-else />

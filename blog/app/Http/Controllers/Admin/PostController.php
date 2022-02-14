@@ -210,6 +210,11 @@ class PostController extends Controller
     {
         $post = Post::find($id);
 
+        //controllo presenza image.  eliminare il file fisico: non lasciare l image orfana all interno della cartella posts-cover
+        if ($post->cover) {
+            Storage::delete($post->cover);
+        }
+
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('delete', $post->title);
