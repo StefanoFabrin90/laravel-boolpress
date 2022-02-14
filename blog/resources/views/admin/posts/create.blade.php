@@ -17,7 +17,7 @@
         @endif
 
         
-        <form action="{{ route('admin.posts.store') }}" method="POST">
+        <form action="{{ route('admin.posts.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -70,6 +70,15 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
             </div>
+
+            {{-- cover --}}
+            <div class="mb-3">
+                <label class="form-label" for="cover"><strong>Post Image:</strong></label>
+                <input class="form-control-file" type="file" name="cover" id="cover">
+            </div>
+            @error('cover')
+                    <div class="text-danger">{{ $message }}</div>
+            @enderror
 
             <button class="btn btn-danger mt-3" type="submit">Create a new Post</button>
         </form>

@@ -11,6 +11,7 @@ class Post extends Model
         'slug',
         'content',
         'category_id',
+        'cover',
     ];
 
     //relazione posts categories (i posts posso avere solo una categoria)

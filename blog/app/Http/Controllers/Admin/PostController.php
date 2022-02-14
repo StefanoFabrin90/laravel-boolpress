@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\Tag;
 use App\Category;
@@ -63,6 +64,15 @@ class PostController extends Controller
         $request->validate($this->validation_rules(), $this->validation_message());
         $data = $request->all();
         //dump($data);
+        //dd($data);
+
+        //aggiunta immagine se presente per il post
+        if (array_key_exists('cover', $data)) {
+            //salvare l imaggine in storage
+            //ottenere l url in termini di posizione e sia di nome file da salvare poi su db
+            $image = Storage::put('posts-cover', $data['cover']);
+            $data['cover'] = $image;
+        }
 
 
         // creazione nuovo post
@@ -152,6 +162,18 @@ class PostController extends Controller
 
         $post = Post::find($id);
 
+        //dopo post, perche mi serve il post di controllo
+        //aggiornamento image
+        if (array_key_exists('cover', $data)) {
+            //rimozione immagine se gia presente
+            if ($post->cover) {
+                Storage::delete($post->cover);
+            }
+
+            //aggiornamneto image (stesso passaggio di prima ma acorcio senza creare una variabile)
+            $data['cover'] = Storage::put('posts-cover', $data['cover']);
+        }
+
         if ($data['title'] != $post->title) {
             $slug = Str::slug($data['title'], '-');
             $count = 1;
@@ -201,6 +223,7 @@ class PostController extends Controller
             'content' => 'required',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|exists:tags,id',
+            'cover' => 'nullable|file|mimes:jpeg,bmp,png',
         ];
     }
 

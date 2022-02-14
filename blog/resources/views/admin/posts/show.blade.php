@@ -5,12 +5,18 @@
         <h1>{{ $post->title }}</h1>
 
         <div class="row mt-5 mb-5">
-            <div class="col-md-6">
+
+            {{-- post content --}}
+            <div class="{{ $post->cover ? 'col-md-6' : 'col' }}">
                 {!! $post->content !!}
             </div>
-            <div class="col-md-6">
-                <strong>image here</strong> 
-            </div>
+
+            {{-- image posts --}}
+            @if($post->cover)
+                <div class="col-md-6">
+                    <img class="img-fluid" src="{{ asset('storage/' . $post->cover) }}" alt="{{ $post->title }}">
+                </div>
+            @endif
         </div>
 
         <div class="mt-5">

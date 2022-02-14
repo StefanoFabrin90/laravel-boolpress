@@ -57,7 +57,7 @@
         {{-- {{ $posts->links() }} --}}
     </div>
 
-    <div class="container">
+    <div class="container mt-5">
         <h2 class="mb-3">Posts By Tag</h2>
         @foreach($tags as $tag)
             <h4>{{ $tag->name }}</h4>
